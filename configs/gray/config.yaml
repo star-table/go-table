@@ -1,0 +1,58 @@
+env: prd
+server:
+  http:
+    addr: 0.0.0.0:8000
+    timeout: 15s
+  grpc:
+    addr: 0.0.0.0:9000
+    timeout: 15s
+data:
+  #数据库相关
+  database:
+    mysql_lc_go: #自定义名字，作为key用于表示某个mysql实例，例如: local, master, slave, feed_master, ...
+      driver: "mysql"
+      dsn: "root:root@tcp(127.0.0.1:3306)/polaris_project_manage_projectsvc?charset=utf8mb4&parseTime=True&loc=Local"
+  redis:
+    addr: "127.0.0.1:6379"
+    password:
+    db : 0
+    read_timeout: 0.2s
+    write_timeout: 0.2s
+  facade:
+    app_server: "discovery:///app"
+    datacenter_server: "discovery:///datacenter"
+    form_server: "discovery:///form"
+    usercenter_server: "discovery:///usercenter"
+    msgsvc_server: "discovery:///msgsvc"
+    permission_server: "discovery:///permission"
+    go_permission_server: "discovery:///lesscode-auth.http"
+    go_push_server: "discovery:///go-push.http"
+    project_server: "discovery:///projectsvc"
+    
+log:
+  path: "/data/go-table/log/go-table.log"
+
+registry:
+  nacos:
+    address: ""
+    port: 8848
+    log_dir: "/tmp/nacos/log"
+    cache_dir: "/tmp/nacos/cache"
+    namespace_id: "d67c99b3-6bbc-417e-9ffc-4e6a7928952c"
+
+config:
+  nacos:
+    address: ""
+    port: 8848
+    namespace_id: "d67c99b3-6bbc-417e-9ffc-4e6a7928952c"
+    log_dir: "/tmp/nacos/log"
+    cache_dir: "/tmp/nacos/cache"
+
+third_party:
+  sentry:
+    dsn:
+  jaeger:
+    udp_address: 127.0.0.1:6831
+    trace_service: lesscode-go-table-prod
+    sampler_type: probabilistic
+    sampler_param: 0.05
